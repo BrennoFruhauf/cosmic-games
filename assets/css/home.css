@@ -36,6 +36,9 @@ main {
 	border-radius: 20px;
 	cursor: pointer;
 	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 	box-shadow: 3px 3px 10px #00000080;
 }

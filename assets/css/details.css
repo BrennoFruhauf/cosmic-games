@@ -27,6 +27,9 @@ main::-webkit-scrollbar {
 }
 
 #video-background * {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -66,6 +69,9 @@ main::-webkit-scrollbar {
 	border-radius: 20px;
 	overflow: hidden;
 	box-shadow: 3px 3px 10px #00000080;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -82,6 +88,9 @@ main::-webkit-scrollbar {
 	transition: box-shadow 200ms ease;
 	width: 188px;
 	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -125,6 +134,7 @@ main::-webkit-scrollbar {
 
 #info {
 	display: flex;
+	-moz-column-gap: calc(10% + 10px);
 	column-gap: calc(10% + 10px);
 	flex-wrap: wrap;
 }

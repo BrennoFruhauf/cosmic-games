@@ -1,24 +1,24 @@
 :root {
-  /* --background-color: linear-gradient(0deg, rgba(30,19,45,1) 40%, rgba(210,210,210,1) 100%); */
-  --background-color: #E3E3E3;
-  --bg-color-inverse: #1E132D;
-  --background-gradient-ct: linear-gradient(0deg, #E3E3E3 40% , #ffffff00 100%);
-  --text-color: #1E132D;
-  --text-color-inverse: #E3E3E3;
-  --btn-download: #1e132d4b;
-  --search-bg-color: #D9D9D9;
-  --primary-color: #1E132D;
-  --secondary-color: rgb(91, 56, 141);
-  --tertiary-color: #9000C4;
-  --search-placeholder-color: rgba(30, 19, 45, 0.75);
-  --shadow-color: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	/* --background-color: linear-gradient(0deg, rgba(30,19,45,1) 40%, rgba(210,210,210,1) 100%); */
+	--background-color: #e3e3e3;
+	--bg-color-inverse: #1e132d;
+	--background-gradient-ct: linear-gradient(0deg, #e3e3e3 40%, #ffffff00 100%);
+	--text-color: #1e132d;
+	--text-color-inverse: #e3e3e3;
+	--btn-download: #1e132d4b;
+	--search-bg-color: #d9d9d9;
+	--primary-color: #1e132d;
+	--secondary-color: rgb(91, 56, 141);
+	--tertiary-color: #9000c4;
+	--search-placeholder-color: rgba(30, 19, 45, 0.75);
+	--shadow-color: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .dark:root {
-  --background-gradient-ct: linear-gradient(0deg, #1E132D 40% , #ffffff00 100%);
-  --background-color: #1E132D;
-  --bg-color-inverse: #E3E3E3;
-  --text-color: #D2D2D2;
-  --text-color-inverse: #1E132D;
-  --btn-download: #a7a7a731;
+	--background-gradient-ct: linear-gradient(0deg, #1e132d 40%, #ffffff00 100%);
+	--background-color: #1e132d;
+	--bg-color-inverse: #e3e3e3;
+	--text-color: #d2d2d2;
+	--text-color-inverse: #1e132d;
+	--btn-download: #a7a7a731;
 }
