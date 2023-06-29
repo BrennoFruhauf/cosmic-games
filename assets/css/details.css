@@ -30,7 +30,7 @@ main::-webkit-scrollbar {
 	user-select: none;
 }
 
-#bloqueio {
+#lock {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -38,13 +38,12 @@ main::-webkit-scrollbar {
 	background-image: var(--background-gradient-ct);
 }
 
-#detalhes-jogo {
+#game-details {
 	position: relative;
 	top: calc(25% + 10vw);
 	z-index: 3;
 	max-width: 1400px;
 	margin-inline: auto;
-	/* margin-top: 275px; */
 	padding-bottom: 30px;
 }
 
@@ -55,8 +54,7 @@ main::-webkit-scrollbar {
 	color: var(--text-color);
 }
 
-/* !Esquerda */
-#esquerda {
+#left {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -97,20 +95,19 @@ main::-webkit-scrollbar {
 	margin-top: 5px;
 }
 
-/* !Direita */
-#direita {
+#right {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
 
-#categorias {
+#categories {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
 }
 
-#categorias a {
+#categories a {
 	padding: 7px 10px;
 	border-radius: 12px;
 	background: var(--bg-color-inverse);
@@ -120,7 +117,7 @@ main::-webkit-scrollbar {
 	font-weight: 500;
 }
 
-#titulo {
+#title {
 	font-size: 32px;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -141,12 +138,12 @@ main::-webkit-scrollbar {
 	text-transform: capitalize;
 }
 
-#direita h3 {
+#right h3 {
 	font-size: 24px;
 	text-transform: uppercase;
 }
 
-#sinopse {
+#synopsis {
 	text-align: justify;
 	margin-bottom: 24px;
 }

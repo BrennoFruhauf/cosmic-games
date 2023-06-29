@@ -3,12 +3,12 @@ main {
 	overflow-y: hidden;
 }
 
-#conteudo-principal {
+#main-content {
 	overflow-y: scroll;
 	padding-bottom: 50px;
 }
 
-#conteudo-principal::-webkit-scrollbar {
+#main-content::-webkit-scrollbar {
 	display: none;
 }
 
@@ -53,7 +53,7 @@ main {
 }
 
 .card::after {
-	content: attr(data-titulo);
+	content: attr(data-title);
 	position: absolute;
 	bottom: 10px;
 	left: 0;

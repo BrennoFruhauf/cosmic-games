@@ -1,67 +1,65 @@
 let videoId
 ;(async () => {
-	async function obterJogo(id) {
-		let json = await (await fetch('/assets/db/jogos.json')).json()
+	const simpleCrypto = new SimpleCrypto('cosmic')
+	const gameID = new URLSearchParams(window.location.search).get('id')
+	const gameData = await getGame(gameID)
+	videoId = gameData.details.trailer.replace(
+		'https://www.youtube.com/embed/',
+		''
+	)
 
-		for (let index = 0; index < json.games.length; index++) {
-			if (json.games[index].id == id) return json.games[index]
-		}
+	async function getGame(id) {
+		let data = await (await fetch('../db/jogos.json')).json()
 
-		return null
+		return data.games.find((game) => game.id === id) || null
 	}
 
-	const simpleCrypto = new SimpleCrypto('cosmic')
-	const jogoId = new URLSearchParams(window.location.search).get('id')
-	const jogo = await obterJogo(jogoId)
-	videoId = jogo.details.trailer.replace('https://www.youtube.com/embed/', '')
+	function addCategories(categories) {
+		const container = document.querySelector('#categories')
 
-	function addCategorias(categorias) {
-		const container = document.querySelector('#categorias')
-
-		for (let i = 0; i < categorias.length; i++) {
+		categories.forEach((category) => {
 			const link = document.createElement('a')
-			link.textContent = categorias[i]
-			link.href = `./index.html?categoria=${categorias[i]
-				.toLowerCase()
-				.replace('+', 'maior-')}`
+			link.textContent = category
+			const formatedCategory = category.toLowerCase().replace('+', 'maior-')
+			link.href = `.././../index.html?categoria=${formatedCategory}`
 
 			container.appendChild(link)
-		}
+		})
 	}
 
-	function addInfo(jogo) {
+	function addInfo(game) {
 		const card = document.querySelector('#card img')
-		card.src = `../${jogo.info.image.replace('assets/', '')}`
+		card.src = `../${game.info.image.replace('assets/', '')}`
 
 		const btnDownload = document.querySelector('#download')
-		btnDownload.href = simpleCrypto.decrypt(jogo.details['link-download'])
+		btnDownload.href = simpleCrypto.decrypt(game.details['link-download'])
 
-		const titulo = document.querySelector('#titulo')
-		titulo.textContent = jogo.title
+		const title = document.querySelector('#title')
+		title.textContent = game.title
 
-		const lancamento = document.querySelector('#lancamento')
-		lancamento.textContent = jogo.info.release
+		const release = document.querySelector('#release')
+		release.textContent = game.info.release
 
-		const plataforma = document.querySelector('#plataforma')
-		plataforma.textContent = jogo.info.platform
+		const platform = document.querySelector('#platform')
+		platform.textContent = game.info.platform
 
-		const dublagem = document.querySelector('#dublagem')
-		dublagem.textContent = jogo.details.dubbing.toLowerCase()
+		const dubbing = document.querySelector('#dubbing')
+		dubbing.textContent = game.details.dubbing.toLowerCase()
 
-		const idioma = document.querySelector('#idioma')
-		idioma.textContent = jogo.details.language.toLowerCase()
+		const language = document.querySelector('#language')
+		language.textContent = game.details.language.toLowerCase()
 
-		const tamanho = document.querySelector('#tamanho')
-		tamanho.textContent = jogo.info.size
+		const size = document.querySelector('#size')
+		size.textContent = game.info.size
 
 		const cracker = document.querySelector('#cracker')
-		cracker.textContent = jogo.info['cracked-by']
+		cracker.textContent = game.info['cracked-by']
 
-		const sinopse = document.querySelector('#sinopse')
-		sinopse.textContent = jogo.details.description
+		const synopsis = document.querySelector('#synopsis')
+		synopsis.textContent = game.details.description
 
 		const trailer = document.querySelector('#video iframe')
-		trailer.src = jogo.details.trailer
+		trailer.src = game.details.trailer
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {
@@ -87,14 +85,16 @@ let videoId
 		})
 	})
 
-	addCategorias(jogo.details.category)
-	addInfo(jogo)
+	if (gameData) {
+		document.title = `Cosmic Torrent | ${gameData.title}`
+		addCategories(gameData.details.category)
+		addInfo(gameData)
+	}
 })()
 
 const tag = document.createElement('script')
-
-tag.src = 'https://www.youtube.com/iframe_api'
 const firstScriptTag = document.getElementsByTagName('script')[0]
+tag.src = 'https://www.youtube.com/iframe_api'
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
 function onYouTubeIframeAPIReady() {

@@ -1,137 +1,166 @@
 ;(async () => {
-	function separarArray(array, tamanho) {
-		return new Array(Math.ceil(array.length / tamanho))
+	const mainContent = document.querySelector('#main-content')
+	const searchByCategory = new URLSearchParams(window.location.search).get(
+		'categoria'
+	)
+	const searchBySearch = new URLSearchParams(window.location.search).get(
+		'busca'
+	)
+	const object = await (await fetch('./assets/db/jogos.json')).json()
+	const cardsContainer = document.querySelector('#cards')
+	let throttleTimer
+
+	function throttle(callback, time) {
+		if (throttleTimer) return
+
+		throttleTimer = true
+
+		setTimeout(() => {
+			callback()
+			throttleTimer = false
+		}, time)
+	}
+
+	function splitArray(array, size) {
+		return new Array(Math.ceil(array.length / size))
 			.fill()
-			.map(() => array.splice(0, tamanho))
+			.map(() => array.splice(0, size))
 	}
 
-	function isElementInViewport(el) {
-		const rect = el.getBoundingClientRect()
+	function isEndOfPage() {
+		const headerHeight = document.querySelector('header').offsetHeight
+		const footerHeight = document.querySelector('footer').offsetHeight
+		const mainHeight = mainContent.scrollHeight
+		const mainPositionTop = mainContent.scrollTop
+		const scrollThreshold = 5
 
-		return (
-			rect.top >= 0 &&
-			rect.left >= 0 &&
-			rect.bottom <=
-				(window.innerHeight || document.documentElement.clientHeight) &&
-			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-		)
+		const variation = headerHeight + footerHeight - scrollThreshold
+		const mainBottom = mainPositionTop + window.innerHeight - variation
+
+		return mainBottom >= mainHeight
 	}
 
-	function carregarJogos(jogos) {
-		jogos.forEach((jogo) => {
+	function capitalizeString(string, exceptions) {
+		const lowercaseStr = string.toLowerCase()
+		const words = lowercaseStr.split(' ')
+
+		const capitalizedWords = words.map((word) => {
+			if (exceptions.includes(word)) {
+				return word.toUpperCase()
+			} else {
+				return word.charAt(0).toUpperCase() + word.slice(1)
+			}
+		})
+
+		const capitalizedStr = capitalizedWords.join(' ')
+		return capitalizedStr
+	}
+
+	function loadGames(games) {
+		games.forEach((game) => {
 			const card = document.createElement('div')
 			card.classList.add('card')
-			card.setAttribute('data-titulo', jogo.title)
+			card.setAttribute('data-title', game.title)
 
 			const link = document.createElement('a')
-			link.href = `./assets/pages/details.html?id=${jogo.id}`
+			link.href = `./assets/pages/details.html?id=${game.id}`
 			card.appendChild(link)
 
 			const img = document.createElement('img')
-			img.src = `./${jogo.info.image}`
+			img.src = `./${game.info.image}`
 			link.appendChild(img)
 
-			containerDosCards.appendChild(card)
+			cardsContainer.appendChild(card)
 		})
 	}
 
-	function exibindoJogos(jogos) {
-		const jogosSeparados = separarArray(jogos, 24)
-		carregarJogos(jogosSeparados.shift())
+	function displayGames(games) {
+		const splitedGames = splitArray(games, 24)
+		loadGames(splitedGames.shift())
 
-		const handleFimDoScroll = () => {
-			const ultimoCard = document.querySelector('.card:last-of-type')
+		const handleInfiniteScroll = () => {
+			throttle(() => {
+				console.log(isEndOfPage())
+				if (isEndOfPage() && splitedGames.length !== 0) {
+					loadGames(splitedGames.shift())
 
-			if (isElementInViewport(ultimoCard) && jogosSeparados.length !== 0)
-				carregarJogos(jogosSeparados.shift())
-			else if (jogosSeparados.length === 0)
-				// conteudoPrincipal.removeEventListener('scrollend', handleFimDoScroll)
-				conteudoPrincipal.removeEventListener('scrollend', handleFimDoScroll)
+					if (splitedGames.length === 0) {
+						mainContent.removeEventListener('scroll', handleInfiniteScroll)
+					}
+				}
+			}, 300)
 		}
 
-		// conteudoPrincipal.addEventListener('scrollend', handleFimDoScroll)
-		conteudoPrincipal.addEventListener('scrollend', handleFimDoScroll)
+		mainContent.addEventListener('scroll', handleInfiniteScroll)
 	}
 
-	function buscarJogosPorCategoria(categoria, jogos) {
-		let jogosFiltrado = []
+	function findGamesByCategory(category, games) {
+		let filteredGames = []
 
-		for (let i = 0; i < jogos.length; i++) {
-			if (
-				jogos[i].details.category
-					.map((item) => item.toLowerCase().replace('+', 'maior-'))
-					.includes(categoria.toLowerCase())
-			) {
-				jogosFiltrado.push(jogos[i])
-			}
-		}
-
-		return jogosFiltrado
-	}
-
-	function carregarJogosPorCategoria(categoria, jogos) {
-		const jogosPorCategoria = buscarJogosPorCategoria(categoria, jogos)
-		const elementoH3 = document.createElement('h3')
-		if (jogosPorCategoria.length === 0) {
-			elementoH3.setAttribute('id', 'info')
-			elementoH3.innerHTML = `Categoria não existe!`
-			conteudoPrincipal.insertBefore(
-				elementoH3,
-				conteudoPrincipal.lastElementChild
+		games.forEach((game) => {
+			const gameCategories = game.details.category.map((el) =>
+				el.toLowerCase().replace('+', 'maior-')
 			)
-			return
-		}
 
-		elementoH3.setAttribute('id', 'info')
-		elementoH3.innerHTML = `Jogos da categoria: <span>${categoria}</span>`
-		conteudoPrincipal.insertBefore(
-			elementoH3,
-			conteudoPrincipal.lastElementChild
-		)
-		exibindoJogos(jogosPorCategoria)
+			if (gameCategories.includes(category.toLowerCase()))
+				filteredGames.push(game)
+		})
+
+		return filteredGames
 	}
 
-	function buscarJogosPorPesquisa(pesquisa, jogos) {
-		let jogosFiltrado = []
+	function loadGamesByCategory(category, games) {
+		const categoryExceptions = ['rpg', 'lol', 'fps', 'nsw', 'jrpg', '2d', '3d']
+		document.title = `Cosmic Torrent | ${capitalizeString(
+			category,
+			categoryExceptions
+		)}`
+		const foundGames = findGamesByCategory(category, games)
+		const h3Element = document.createElement('h3')
 
-		for (let i = 0; i < jogos.length; i++) {
-			if (jogos[i].title.toLowerCase().includes(pesquisa)) {
-				jogosFiltrado.push(jogos[i])
-			}
+		if (foundGames.length === 0) {
+			h3Element.textContent = 'Categoria não existe!'
+		} else {
+			h3Element.textContent = `Jogos da categoria: `
+			const spanElement = document.createElement('span')
+			spanElement.textContent = category
+			h3Element.appendChild(spanElement)
 		}
 
-		return jogosFiltrado
+		h3Element.setAttribute('id', 'info')
+		mainContent.insertBefore(h3Element, mainContent.lastElementChild)
+
+		displayGames(foundGames)
 	}
 
-	function carregarJogosPorPesquisa(pesquisa, jogos) {
-		const jogosPorPesquisa = buscarJogosPorPesquisa(pesquisa, jogos)
-		const elementoH3 = document.createElement('h3')
-		if (jogosPorPesquisa.length === 0) {
-			elementoH3.setAttribute('id', 'info')
-			elementoH3.innerHTML = `Nenhum jogo encontrado na pesquisa: <span>${pesquisa}</span>`
-			conteudoPrincipal.insertBefore(
-				elementoH3,
-				conteudoPrincipal.lastElementChild
-			)
-			return
-		}
+	function findGamesBySearch(search, games) {
+		let filteredGames = []
 
-		elementoH3.setAttribute('id', 'info')
-		elementoH3.innerHTML = `Resultado da pesquisa: <span>${pesquisa}</span>`
-		conteudoPrincipal.insertBefore(
-			elementoH3,
-			conteudoPrincipal.lastElementChild
-		)
-		exibindoJogos(jogosPorPesquisa)
+		games.forEach((game) => {
+			if (game.title.toLowerCase().includes(search)) filteredGames.push(game)
+		})
+
+		return filteredGames
 	}
 
-	const categoria = new URLSearchParams(window.location.search).get('categoria')
-	const busca = new URLSearchParams(window.location.search).get('busca')
-	const json = await (await fetch('./assets/db/jogos.json')).json()
-	const conteudoPrincipal = document.querySelector('#conteudo-principal')
-	const containerDosCards = document.querySelector('#cards')
+	function loadGamesBySearch(search, games) {
+		const foundGames = findGamesBySearch(search, games)
+		const h3Element = document.createElement('h3')
+		const spanElement = document.createElement('span')
+		spanElement.textContent = search
 
-	if (categoria) carregarJogosPorCategoria(categoria, json.games)
-	else if (busca) carregarJogosPorPesquisa(busca, json.games)
-	else exibindoJogos(json.games)
+		if (foundGames.length === 0)
+			h3Element.textContent = `Nenhum jogo encontrado na pesquisa: `
+		else h3Element.textContent = `Resultado da pesquisa: `
+
+		h3Element.setAttribute('id', 'info')
+		h3Element.appendChild(spanElement)
+		mainContent.insertBefore(h3Element, mainContent.lastElementChild)
+
+		displayGames(foundGames)
+	}
+
+	if (searchByCategory) loadGamesByCategory(searchByCategory, object.games)
+	else if (searchBySearch) loadGamesBySearch(searchBySearch, object.games)
+	else displayGames(object.games)
 })()

@@ -1,143 +1,141 @@
 ;(async () => {
-	let pathLogoDark = './assets/img/others/logo-dark.svg'
-	let pathLogoLight = './assets/img/others/logo-light.svg'
-
-	if (document.URL.includes('details.html')) {
-		pathLogoDark = '../img/others/logo-dark.svg'
-		pathLogoLight = '../img/others/logo-light.svg'
-	}
-
 	const html = document.querySelector('html')
+	const categoriesContainer = document.querySelector('#category-list')
+	const logo = document.getElementById('logo')
+	const bgModalFilter = document.querySelector('#bg-modal-filter')
+	const btnOpenFilter = document.querySelector('#btn-filter')
+	const btnCloseFilter = document.querySelector('#close-filter')
+	const inputSearch = document.querySelector('#search-input')
+	const btnSearch = document.querySelector('#search-icon')
+	const btnToggle = document.querySelector('#btn-theme')
+	const gameData = await (await fetch('.././../assets/db/jogos.json')).json()
+	const gameList = gameData.games
 
-	function trocarLogo() {
-		const logo = document.getElementById('logo')
+	function toggleLogo() {
+		let pathDarkLogo = './assets/img/others/logo-dark.svg'
+		let pathLightLogo = './assets/img/others/logo-light.svg'
+
+		if (!document.URL.includes('index.html')) {
+			pathDarkLogo = '../img/others/logo-dark.svg'
+			pathLightLogo = '../img/others/logo-light.svg'
+		}
 
 		if (html.classList.contains('dark')) {
-			logo.src = pathLogoDark
+			logo.src = pathDarkLogo
 		} else {
-			logo.src = pathLogoLight
+			logo.src = pathLightLogo
 		}
 	}
 
-	function colocarTema() {
-		const tema = localStorage.getItem('tema')
+	function setTheme() {
+		const theme = localStorage.getItem('theme')
 		const moon = document.querySelector('#moon')
 		const sun = document.querySelector('#sun')
 
-		if (tema && tema === 'light') {
+		if (theme && theme === 'light') {
 			moon.classList.replace('active', 'disabled')
 			sun.classList.replace('disabled', 'active')
 			document.querySelector('html').classList.remove('dark')
 		}
-		trocarLogo()
+		toggleLogo()
 	}
 
-	function trocarTema() {
+	function toggleTheme() {
 		const moon = document.querySelector('#moon')
 		const sun = document.querySelector('#sun')
 
 		if (moon.classList.contains('active')) {
-			localStorage.setItem('tema', 'light')
+			localStorage.setItem('theme', 'light')
 			moon.classList.replace('active', 'disabled')
 			sun.classList.replace('disabled', 'active')
 			html.classList.remove('dark')
-			trocarLogo()
 		} else {
-			localStorage.setItem('tema', 'dark')
+			localStorage.setItem('theme', 'dark')
 			moon.classList.replace('disabled', 'active')
 			sun.classList.replace('active', 'disabled')
 			html.classList.add('dark')
-			trocarLogo()
 		}
+		toggleLogo()
 	}
 
-	const json = await (await fetch('/assets/db/jogos.json')).json()
-	const jogos = json.games
-
-	function carregarCategorias(jogos) {
-		const listaDeCategorias = []
-		jogos.forEach((jogo) => {
-			const categorias = jogo.details.category
-			categorias.forEach((categoria) => {
-				if (!listaDeCategorias.includes(categoria))
-					listaDeCategorias.push(categoria)
+	function loadCategories(games) {
+		const categoryList = []
+		games.forEach((game) => {
+			const gameCategories = game.details.category
+			gameCategories.forEach((category) => {
+				if (!categoryList.includes(category)) categoryList.push(category)
 			})
 		})
 
-		const containerLista = document.querySelector('#lista-categorias')
-		const lista = document.createElement('ul')
-		for (let i = 0; i < listaDeCategorias.length; i++) {
-			const itemDaLista = document.createElement('li')
-			const linkItem = document.createElement('a')
-			itemDaLista.textContent = listaDeCategorias[i]
-			linkItem.href = `/index.html?categoria=${listaDeCategorias[i]
+		const list = document.createElement('ul')
+		for (let i = 0; i < categoryList.length; i++) {
+			const listItem = document.createElement('li')
+			const itemLink = document.createElement('a')
+			listItem.textContent = categoryList[i]
+			itemLink.href = `/index.html?categoria=${categoryList[i]
 				.replace('+', 'maior-')
 				.toLowerCase()}`
-			linkItem.appendChild(itemDaLista)
-			lista.appendChild(linkItem)
+			itemLink.appendChild(listItem)
+			list.appendChild(itemLink)
 		}
-		containerLista.appendChild(lista)
+
+		categoriesContainer.appendChild(list)
 	}
 
-	const listaCategoria = document.getElementById('lista-categorias')
-	const fundo = document.querySelector('#fundo')
-	document.querySelector('#btn-filtro').addEventListener('click', () => {
-		listaCategoria.style.display = 'flex'
-		fundo.style.display = 'block'
-		if (!listaCategoria.classList.contains('fade-out-top')) {
-			listaCategoria.classList.add('fade-in-top')
-			fundo.classList.add('fade-in')
+	function openCloseFilter(event) {
+		event.stopPropagation()
+
+		if (event.target.id === 'btn-filter') {
+			categoriesContainer.style.display = 'flex'
+			bgModalFilter.style.display = 'block'
+			if (!categoriesContainer.classList.contains('fade-out-top')) {
+				categoriesContainer.classList.add('fade-in-top')
+				bgModalFilter.classList.add('fade-in')
+			} else {
+				categoriesContainer.classList.toggle('fade-in-top')
+				categoriesContainer.classList.toggle('fade-out-top')
+				bgModalFilter.classList.toggle('fade-in')
+				bgModalFilter.classList.toggle('fade-out')
+			}
+			return
 		} else {
-			listaCategoria.classList.toggle('fade-in-top')
-			listaCategoria.classList.toggle('fade-out-top')
-			fundo.classList.toggle('fade-in')
-			fundo.classList.toggle('fade-out')
+			const el = event.target
+			const isElValid =
+				el.id === 'close-filter' ||
+				el.id === 'bg-modal-filter' ||
+				el.tagName === 'LI'
+					? true
+					: false
+
+			if (isElValid) {
+				categoriesContainer.classList.toggle('fade-in-top')
+				categoriesContainer.classList.toggle('fade-out-top')
+				bgModalFilter.classList.toggle('fade-in')
+				bgModalFilter.classList.toggle('fade-out')
+				setTimeout(() => {
+					categoriesContainer.style.display = 'none'
+					bgModalFilter.style.display = 'none'
+				}, 700)
+			}
 		}
-	})
+	}
 
-	document
-		.querySelector('#close-filtro')
-		.addEventListener('click', (evento) => {
-			evento.stopPropagation()
-			listaCategoria.classList.toggle('fade-in-top')
-			listaCategoria.classList.toggle('fade-out-top')
-			fundo.classList.toggle('fade-in')
-			fundo.classList.toggle('fade-out')
-			setTimeout(() => {
-				listaCategoria.style.display = 'none'
-				fundo.style.display = 'none'
-			}, 700)
-		})
+	function search(event) {
+		if (
+			(event.key === 'Enter' || event.type === 'click') &&
+			inputSearch.value
+		) {
+			window.location.href = `/index.html?busca=${inputSearch.value.toLowerCase()}`
+		}
+	}
 
-	fundo.addEventListener('click', (evento) => {
-		evento.stopPropagation()
-		listaCategoria.classList.toggle('fade-in-top')
-		listaCategoria.classList.toggle('fade-out-top')
-		fundo.classList.toggle('fade-in')
-		fundo.classList.toggle('fade-out')
-		setTimeout(() => {
-			listaCategoria.style.display = 'none'
-			fundo.style.display = 'none'
-		}, 700)
-	})
+	btnOpenFilter.addEventListener('click', openCloseFilter)
+	btnCloseFilter.addEventListener('click', openCloseFilter)
+	bgModalFilter.addEventListener('click', openCloseFilter)
+	inputSearch.addEventListener('keydown', search)
+	btnSearch.addEventListener('click', search)
+	btnToggle.addEventListener('click', toggleTheme)
 
-	// const inputSearch = document.querySelector('#buscar__input')
-	// const btnSearch = document.querySelector('#buscar__icon')
-
-	// inputSearch.addEventListener('keydown', (e) => {
-	// 	if (e.key === 'Enter' && e.target.value) {
-	// 		window.location.href = `/index.html?busca=${e.target.value.toLowerCase()}`
-	// 	}
-	// })
-
-	// btnSearch.addEventListener('click', () => {
-	// 	if (inputSearch.value)
-	// 		window.location.href = `/index.html?busca=${inputSearch.value.toLowerCase()}`
-	// })
-
-	const btnToggle = document.querySelector('#btn-tema')
-	btnToggle.addEventListener('click', trocarTema)
-
-	colocarTema()
-	carregarCategorias(jogos)
+	setTheme()
+	loadCategories(gameList)
 })()
