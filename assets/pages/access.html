@@ -6,7 +6,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Cosmic Torrent</title>
+		<title>Cosmic Torrent | Login</title>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Anaheim&family=Chakra+Petch:wght@300;400;500;600;700&display=swap"
 			rel="stylesheet" />
@@ -16,14 +16,15 @@
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-		<link rel="stylesheet" href="./assets/css/variables.css" />
-		<link rel="stylesheet" href="./assets/css/main.css" />
-		<link rel="stylesheet" href="./assets/css/home.css" />
+		<link rel="stylesheet" href="../css/variables.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<!-- <link rel="stylesheet" href="../css/home.css" /> -->
+		<link rel="stylesheet" href="../css/access.css" />
 	</head>
 	<body>
 		<header>
 			<div id="top" class="content">
-				<a id="logo-link" href="./index.html">
+				<a id="logo-link" href=".././../index.html">
 					<img id="logo" src="" alt="" />
 				</a>
 
@@ -54,10 +55,8 @@
 					</div>
 
 					<div id="btn-access">
-						<a id="login" href="./assets/pages/access.html">Login</a>
-						<a id="register" href="./assets/pages/access.html?cadastro"
-							>Cadastro</a
-						>
+						<a id="login" href="./access.html">Login</a>
+						<a id="register" href="./access.html?cadastro">Cadastro</a>
 					</div>
 
 					<div id="btn-theme">
@@ -73,26 +72,40 @@
 		</header>
 
 		<main>
-			<div id="main-content" class="content">
-				<div id="cards"></div>
-
-				<div id="loader">
-					<div class="loader">
-						<svg viewBox="0 0 80 80">
-							<circle id="test" cx="40" cy="40" r="32"></circle>
-						</svg>
-					</div>
-
-					<div class="loader triangle">
-						<svg viewBox="0 0 86 80">
-							<polygon points="43 8 79 72 7 72"></polygon>
-						</svg>
-					</div>
-
-					<div class="loader">
-						<svg viewBox="0 0 80 80">
-							<rect x="8" y="8" width="64" height="64"></rect>
-						</svg>
+			<div class="container" id="container">
+				<div class="form-container sign-up-container">
+					<form action="#">
+						<h1>Cadastro</h1>
+						<input type="text" placeholder="Usuário" autocomplete="off" />
+						<input type="text" placeholder="Nome" autocomplete="off" />
+						<input type="email" placeholder="Email" autocomplete="off" />
+						<input type="password" placeholder="Senha" autocomplete="off" />
+						<button id="btn-register">Cadastrar</button>
+					</form>
+				</div>
+				<div class="form-container sign-in-container">
+					<form action="#">
+						<h1>Login</h1>
+						<input type="email" placeholder="Usuário" autocomplete="off" />
+						<input type="password" placeholder="Senha" autocomplete="off" />
+						<a href="#">Esqueceu a senha?</a>
+						<button id="btn-login">Logar</button>
+					</form>
+				</div>
+				<div class="overlay-container">
+					<div class="overlay">
+						<div class="overlay-panel overlay-left">
+							<h1>Bem-vindo de volta cósmico!</h1>
+							<p>Faça login para poder explorar o nosso vasto cosmo!</p>
+							<button class="ghost" id="signIn">Login</button>
+						</div>
+						<div class="overlay-panel overlay-right">
+							<h1>Olá, Aventureiro!</h1>
+							<p>
+								Sem cadastro? Faça um e começe a viajar conosco pelo cósmos!
+							</p>
+							<button class="ghost" id="signUp">Cadastrar</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,7 +114,8 @@
 		<footer>
 			<p>Copyright © 2023 made with ❤️ by Brenno Fruhauf.</p>
 		</footer>
-		<script src="./assets/js/main.js" defer></script>
-		<script src="./assets/js/pages/home.js"></script>
+		<script src="../js/main.js" defer></script>
+		<script src="../js/pages/access.js"></script>
+		<!-- <script src="./assets/js/pages/home.js"></script> -->
 	</body>
 </html>

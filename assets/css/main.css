@@ -57,7 +57,7 @@ nav {
 	display: flex;
 	align-items: center;
 	gap: 16px;
-	flex-basis: 350px;
+	flex-basis: 500px;
 }
 
 #search {
@@ -111,25 +111,37 @@ nav {
 
 #search::-webkit-input-placeholder {
 	color: var(--search-placeholder-color);
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 #search::-moz-placeholder {
 	color: var(--search-placeholder-color);
+	-moz-user-select: none;
+	user-select: none;
 }
 
 #search:-ms-input-placeholder {
 	color: var(--search-placeholder-color);
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #search::-ms-input-placeholder {
 	color: var(--search-placeholder-color);
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #search::placeholder {
 	color: var(--search-placeholder-color);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-#btn-filter {
+.btn {
 	display: flex;
 	position: relative;
 	justify-content: center;
@@ -138,19 +150,13 @@ nav {
 	background-color: var(--secondary-color);
 	width: 35px;
 	border-radius: 12px;
-	z-index: 5;
 	cursor: pointer;
 	box-shadow: var(--shadow-color);
 	transition: box-shadow 0.3s ease-in;
 	flex-shrink: 0;
 }
 
-#btn-filter:active {
-	box-shadow: var(--shadow-color) inset;
-	transition: box-shadow 0.3s ease-in;
-}
-
-#filter {
+.btn > span {
 	font-size: 24px;
 	color: white;
 	-webkit-user-select: none;
@@ -158,6 +164,15 @@ nav {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
+}
+
+.btn:active {
+	box-shadow: var(--shadow-color) inset;
+	transition: box-shadow 0.3s ease-in;
+}
+
+#btn-filter {
+	z-index: 5;
 }
 
 #category-list {
@@ -251,6 +266,40 @@ ul::-webkit-scrollbar {
 	text-transform: capitalize;
 }
 
+#btn-access {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+#btn-access > a {
+	font-size: 1.1rem;
+	font-weight: 500;
+	color: var(--text-color);
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: border-color 300ms, color 300ms;
+	text-decoration: none;
+}
+
+#btn-access > a:hover {
+	color: rgb(154, 131, 175);
+}
+
+#register {
+	border: 1px solid var(--text-color);
+	border-radius: 6px;
+	padding: 4px 8px;
+}
+
+#register:hover {
+	border-color: rgb(154, 131, 175);
+}
+
 #btn-theme {
 	background-color: var(--secondary-color);
 	height: 51px;
@@ -304,6 +353,7 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-size: 14px;
 	height: 50px;
 	width: 100%;
 	background: rgb(27, 27, 27);

@@ -12,10 +12,12 @@
 	const gameList = gameData.games
 
 	function toggleLogo() {
+		const urlPath = window.location.pathname
+
 		let pathDarkLogo = './assets/img/others/logo-dark.svg'
 		let pathLightLogo = './assets/img/others/logo-light.svg'
 
-		if (!document.URL.includes('index.html')) {
+		if (urlPath != '/' && urlPath != '/index.html') {
 			pathDarkLogo = '../img/others/logo-dark.svg'
 			pathLightLogo = '../img/others/logo-light.svg'
 		}

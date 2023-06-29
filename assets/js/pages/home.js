@@ -99,7 +99,6 @@
 
 		const handleInfiniteScroll = () => {
 			throttle(() => {
-				console.log(isEndOfPage())
 				if (isEndOfPage() && splitedGames.length !== 0) {
 					showLoading(splitedGames.shift())
 
