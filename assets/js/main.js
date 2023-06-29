@@ -8,19 +8,27 @@
 	const inputSearch = document.querySelector('#search-input')
 	const btnSearch = document.querySelector('#search-icon')
 	const btnToggle = document.querySelector('#btn-theme')
-	const gameData = await (await fetch('.././../assets/db/jogos.json')).json()
+	const urlPath = window.location.pathname.replace('/cosmic-torrent', '')
+	const urlDataBase = checkPathToUrl('./assets/db', '../db')
+	const gameData = await (await fetch(`${urlDataBase}/jogos.json`)).json()
 	const gameList = gameData.games
 
+	let urlMenu = checkPathToUrl('./index.html', '.././../index.html')
+
+	function checkPathToUrl(pathIndex, pathOthersPage) {
+		if (urlPath === '/' || urlPath === '/index.html') return pathIndex
+		else return pathOthersPage
+	}
+
 	function toggleLogo() {
-		const urlPath = window.location.pathname
-
-		let pathDarkLogo = './assets/img/others/logo-dark.svg'
-		let pathLightLogo = './assets/img/others/logo-light.svg'
-
-		if (urlPath != '/' && urlPath != '/index.html') {
-			pathDarkLogo = '../img/others/logo-dark.svg'
-			pathLightLogo = '../img/others/logo-light.svg'
-		}
+		let pathDarkLogo = checkPathToUrl(
+			'./assets/img/others/logo-dark.svg',
+			'../img/others/logo-dark.svg'
+		)
+		let pathLightLogo = checkPathToUrl(
+			'./assets/img/others/logo-light.svg',
+			'../img/others/logo-light.svg'
+		)
 
 		if (html.classList.contains('dark')) {
 			logo.src = pathDarkLogo
@@ -70,11 +78,12 @@
 		})
 
 		const list = document.createElement('ul')
+
 		for (let i = 0; i < categoryList.length; i++) {
 			const listItem = document.createElement('li')
 			const itemLink = document.createElement('a')
 			listItem.textContent = categoryList[i]
-			itemLink.href = `/index.html?categoria=${categoryList[i]
+			itemLink.href = `${urlMenu}?categoria=${categoryList[i]
 				.replace('+', 'maior-')
 				.toLowerCase()}`
 			itemLink.appendChild(listItem)
@@ -127,7 +136,7 @@
 			(event.key === 'Enter' || event.type === 'click') &&
 			inputSearch.value
 		) {
-			window.location.href = `/index.html?busca=${inputSearch.value.toLowerCase()}`
+			window.location.href = `${urlMenu}?busca=${inputSearch.value.toLowerCase()}`
 		}
 	}
 
