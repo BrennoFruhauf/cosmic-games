@@ -4,8 +4,9 @@ main {
 }
 
 #main-content {
+	position: relative;
 	overflow-y: scroll;
-	padding-bottom: 50px;
+	padding-bottom: 100px;
 }
 
 #main-content::-webkit-scrollbar {
@@ -81,4 +82,96 @@ main {
 
 .card img {
 	width: 100%;
+}
+
+#loader {
+	display: none;
+	margin-top: 20px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+}
+
+.loader {
+	display: inline-block;
+	width: 44px;
+	height: 44px;
+	margin: 0 16px;
+	position: relative;
+}
+
+.loader:before {
+	content: '';
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	position: absolute;
+	display: block;
+	background: var(--loader-dot);
+	top: 37px;
+	left: 19px;
+	-webkit-transform: translate(-18px, -18px);
+	-ms-transform: translate(-18px, -18px);
+	transform: translate(-18px, -18px);
+	-webkit-animation: dotRect var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	animation: dotRect var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
+	fill: none;
+	stroke: var(--loader-color);
+	stroke-width: 10px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+.loader svg polygon {
+	stroke-dasharray: 145 76 145 76;
+	stroke-dashoffset: 0;
+	-webkit-animation: pathTriangle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	animation: pathTriangle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg rect {
+	stroke-dasharray: 192 64 192 64;
+	stroke-dashoffset: 0;
+	-webkit-animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg circle {
+	stroke-dasharray: 150 50 150 50;
+	stroke-dashoffset: 75;
+	-webkit-animation: pathCircle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	animation: pathCircle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader.triangle {
+	width: 48px;
+}
+
+.loader.triangle:before {
+	left: 21px;
+	-webkit-transform: translate(-10px, -18px);
+	-ms-transform: translate(-10px, -18px);
+	transform: translate(-10px, -18px);
+	-webkit-animation: dotTriangle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	animation: dotTriangle var(--loader-duration)
+		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }

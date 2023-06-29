@@ -8,6 +8,8 @@
 	)
 	const object = await (await fetch('./assets/db/jogos.json')).json()
 	const cardsContainer = document.querySelector('#cards')
+	const loader = document.querySelector('#loader')
+
 	let throttleTimer
 
 	function throttle(callback, time) {
@@ -74,6 +76,23 @@
 		})
 	}
 
+	function showLoading(gameList) {
+		loader.style.display = 'flex'
+		loader.classList.add('fade-in')
+
+		setTimeout(() => {
+			loader.classList.remove('fade-in')
+			loader.classList.add('fade-out')
+
+			setTimeout(() => {
+				loader.style.display = 'none'
+				loader.classList.remove('fade-out')
+
+				loadGames(gameList)
+			}, 300)
+		}, 1500)
+	}
+
 	function displayGames(games) {
 		const splitedGames = splitArray(games, 24)
 		loadGames(splitedGames.shift())
@@ -82,7 +101,7 @@
 			throttle(() => {
 				console.log(isEndOfPage())
 				if (isEndOfPage() && splitedGames.length !== 0) {
-					loadGames(splitedGames.shift())
+					showLoading(splitedGames.shift())
 
 					if (splitedGames.length === 0) {
 						mainContent.removeEventListener('scroll', handleInfiniteScroll)
@@ -128,7 +147,7 @@
 		}
 
 		h3Element.setAttribute('id', 'info')
-		mainContent.insertBefore(h3Element, mainContent.lastElementChild)
+		mainContent.insertBefore(h3Element, mainContent.firstElementChild)
 
 		displayGames(foundGames)
 	}
@@ -155,7 +174,7 @@
 
 		h3Element.setAttribute('id', 'info')
 		h3Element.appendChild(spanElement)
-		mainContent.insertBefore(h3Element, mainContent.lastElementChild)
+		mainContent.insertBefore(h3Element, mainContent.firstElementChild)
 
 		displayGames(foundGames)
 	}
