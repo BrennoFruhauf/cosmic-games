@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cosmic Torrent</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Anaheim&family=Chakra+Petch:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+		<link rel="stylesheet" href="./assets/css/variables.css" />
+		<link rel="stylesheet" href="./assets/css/main.css" />
+		<link rel="stylesheet" href="./assets/css/home.css" />
+	</head>
+	<body>
+		<header>
+			<div id="topo" class="conteudo">
+				<a id="logo__link" href="./index.html">
+					<img id="logo" src="" alt="" />
+				</a>
+
+				<nav>
+					<div id="buscar">
+						<span id="buscar__icon" class="material-symbols-rounded"
+							>search</span
+						>
+						<input
+							id="buscar__input"
+							type="search"
+							name=""
+							placeholder="Buscar um jogo..." />
+					</div>
+
+					<div id="btn-filtro">
+						<span id="filtro" class="material-symbols-outlined"
+							>instant_mix</span
+						>
+						<div id="fundo"></div>
+						<div id="lista-categorias">
+							<div id="close-filtro"></div>
+						</div>
+					</div>
+
+					<div id="btn-tema">
+						<span id="moon" class="active material-symbols-outlined"
+							>dark_mode</span
+						>
+						<span id="sun" class="disabled material-symbols-outlined"
+							>light_mode</span
+						>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+			<div id="conteudo-principal" class="conteudo">
+				<div id="cards"></div>
+			</div>
+		</main>
+
+		<footer>
+			<p>Copyright © 2023 made with ❤️ by Brenno Fruhauf.</p>
+		</footer>
+		<script src="./assets/js/main.js" defer></script>
+		<script src="./assets/js/pages/home.js"></script>
+	</body>
+</html>

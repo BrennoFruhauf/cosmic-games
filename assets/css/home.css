@@ -1,0 +1,81 @@
+main {
+	height: calc(100vh - 140px);
+	overflow-y: hidden;
+}
+
+#conteudo-principal {
+	overflow-y: scroll;
+	padding-bottom: 50px;
+}
+
+#conteudo-principal::-webkit-scrollbar {
+	display: none;
+}
+
+#info {
+	color: var(--text-color);
+	text-transform: uppercase;
+	padding: 30px 0;
+}
+
+#info span {
+	font-weight: 100;
+}
+
+#cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(188px, 1fr));
+	gap: 24px;
+	justify-items: center;
+}
+
+.card {
+	position: relative;
+	height: 256px;
+	width: 188px;
+	border-radius: 20px;
+	cursor: pointer;
+	overflow: hidden;
+	user-select: none;
+	box-shadow: 3px 3px 10px #00000080;
+}
+
+.card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(0deg, #26072dc4 30%, #00000000);
+	opacity: 0;
+	transition: opacity 0.3s ease-in, background-image 0.3s ease-in;
+}
+
+.card::after {
+	content: attr(data-titulo);
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	margin: 10px;
+	width: calc(100% - 20px);
+	color: white;
+	font-weight: bold;
+	text-transform: uppercase;
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
+}
+
+.card::before,
+.card::after {
+	pointer-events: none;
+}
+
+.card:hover::before,
+.card:hover::after {
+	opacity: 1;
+}
+
+.card img {
+	width: 100%;
+}
