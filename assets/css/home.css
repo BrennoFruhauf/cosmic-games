@@ -111,8 +111,6 @@ main {
 	background: var(--loader-dot);
 	top: 37px;
 	left: 19px;
-	-webkit-transform: translate(-18px, -18px);
-	-ms-transform: translate(-18px, -18px);
 	transform: translate(-18px, -18px);
 	-webkit-animation: dotRect var(--loader-duration)
 		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
@@ -167,8 +165,6 @@ main {
 
 .loader.triangle:before {
 	left: 21px;
-	-webkit-transform: translate(-10px, -18px);
-	-ms-transform: translate(-10px, -18px);
 	transform: translate(-10px, -18px);
 	-webkit-animation: dotTriangle var(--loader-duration)
 		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;

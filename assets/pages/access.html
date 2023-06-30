@@ -76,35 +76,63 @@
 				<div class="form-container sign-up-container">
 					<form action="#">
 						<h1>Cadastro</h1>
-						<input type="text" placeholder="Usuário" autocomplete="off" />
-						<input type="text" placeholder="Nome" autocomplete="off" />
-						<input type="email" placeholder="Email" autocomplete="off" />
-						<input type="password" placeholder="Senha" autocomplete="off" />
+						<input
+							type="text"
+							id="signup-username"
+							placeholder="Usuário"
+							autocomplete="off" />
+						<input
+							type="text"
+							id="signup-name"
+							placeholder="Nome"
+							autocomplete="off" />
+						<input
+							type="email"
+							id="signup-email"
+							placeholder="Email"
+							autocomplete="off" />
+						<input
+							type="password"
+							id="signup-password"
+							placeholder="Senha"
+							autocomplete="off" />
 						<button id="btn-register">Cadastrar</button>
+						<ul class="errors"></ul>
 					</form>
 				</div>
 				<div class="form-container sign-in-container">
 					<form action="#">
 						<h1>Login</h1>
-						<input type="email" placeholder="Usuário" autocomplete="off" />
-						<input type="password" placeholder="Senha" autocomplete="off" />
+						<input
+							type="text"
+							id="signin-username"
+							required
+							placeholder="Usuário"
+							autocomplete="off" />
+						<input
+							type="password"
+							id="signin-password"
+							required
+							placeholder="Senha"
+							autocomplete="off" />
 						<a href="#">Esqueceu a senha?</a>
 						<button id="btn-login">Logar</button>
+						<ul class="errors"></ul>
 					</form>
 				</div>
 				<div class="overlay-container">
 					<div class="overlay">
 						<div class="overlay-panel overlay-left">
-							<h1>Bem-vindo de volta cósmico!</h1>
+							<h1>Bem-vindo de volta, cósmico!</h1>
 							<p>Faça login para poder explorar o nosso vasto cosmo!</p>
-							<button class="ghost" id="signIn">Login</button>
+							<button class="ghost" id="sign-in">Login</button>
 						</div>
 						<div class="overlay-panel overlay-right">
 							<h1>Olá, Aventureiro!</h1>
 							<p>
 								Sem cadastro? Faça um e começe a viajar conosco pelo cósmos!
 							</p>
-							<button class="ghost" id="signUp">Cadastrar</button>
+							<button class="ghost" id="sign-up">Cadastrar</button>
 						</div>
 					</div>
 				</div>
@@ -116,6 +144,5 @@
 		</footer>
 		<script src="../js/main.js"></script>
 		<script src="../js/pages/access.js"></script>
-		<!-- <script src="./assets/js/pages/home.js"></script> -->
 	</body>
 </html>

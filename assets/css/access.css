@@ -80,7 +80,9 @@ form input {
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
+	height: 41px;
 	width: 100%;
+	outline: none;
 }
 
 .sign-up-container input[type='password'] {
@@ -112,6 +114,7 @@ form input {
 }
 
 .container.right-panel-active .sign-in-container {
+	visibility: hidden;
 	transform: translateX(100%);
 }
 
@@ -126,11 +129,6 @@ form input {
 	transform: translateX(100%);
 	opacity: 1;
 	z-index: 5;
-}
-
-.container.right-panel-active .sign-up-container {
-	-webkit-animation: show 0.6s;
-	animation: show 0.6s;
 }
 
 @-webkit-keyframes show {
@@ -244,4 +242,10 @@ form input {
 	margin: 0 5px;
 	height: 40px;
 	width: 40px;
+}
+
+.errors {
+	margin-top: 1rem;
+	color: red;
+	font-size: 0.8rem;
 }

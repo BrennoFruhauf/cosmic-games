@@ -34,6 +34,15 @@ let videoId
 		const btnDownload = document.querySelector('#download')
 		btnDownload.href = simpleCrypto.decrypt(game.details['link-download'])
 
+		const loginWarning = document.querySelector('#login-warning')
+
+		if (localStorage.getItem('login')) {
+			btnDownload.href = simpleCrypto.decrypt(game.details['link-download'])
+			loginWarning.style.display = 'none'
+		} else {
+			btnDownload.style.display = 'none'
+		}
+
 		const title = document.querySelector('#title')
 		title.textContent = game.title
 

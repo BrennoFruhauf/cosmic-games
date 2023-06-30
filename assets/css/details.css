@@ -104,6 +104,15 @@ main::-webkit-scrollbar {
 	margin-top: 5px;
 }
 
+#login-warning a {
+	color: inherit;
+	text-decoration: none;
+}
+
+#login-warning a:hover {
+	color: rgb(154, 131, 175);
+}
+
 #right {
 	display: flex;
 	flex-direction: column;

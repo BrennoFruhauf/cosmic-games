@@ -9,6 +9,9 @@
 	const btnSearch = document.querySelector('#search-icon')
 	const btnToggle = document.querySelector('#btn-theme')
 	const urlPath = window.location.pathname.replace('/cosmic-torrent', '')
+	const btnAccess = document.querySelector('#btn-access')
+	const btnDonate = document.querySelector('#btn-donate')
+	const infoUser = document.querySelector('#info-user')
 	const urlDataBase = checkPathToUrl('./assets/db', '../db')
 	const gameData = await (await fetch(`${urlDataBase}/jogos.json`)).json()
 	const gameList = gameData.games
@@ -18,6 +21,44 @@
 	function checkPathToUrl(pathIndex, pathOthersPage) {
 		if (urlPath === '/' || urlPath === '/index.html') return pathIndex
 		else return pathOthersPage
+	}
+
+	function getFirstWord(string) {
+		const trimmedStr = string.trim()
+		const firstSpaceIndex = trimmedStr.indexOf(' ')
+
+		if (firstSpaceIndex === -1) return trimmedStr
+
+		return trimmedStr.substring(0, firstSpaceIndex)
+	}
+
+	function islogedUser() {
+		const accountUser = localStorage.getItem('login')
+
+		if (accountUser) {
+			const userData = JSON.parse(accountUser)
+			btnAccess.remove()
+			const pElement = document.createElement('p')
+			pElement.textContent = 'Olá, '
+			const spanElement = document.createElement('span')
+			spanElement.textContent = getFirstWord(userData.name)
+
+			pElement.appendChild(spanElement)
+
+			const aElement = document.createElement('a')
+			aElement.textContent = 'Sair'
+			aElement.addEventListener('click', () => {
+				localStorage.removeItem('login')
+				window.location.reload()
+			})
+
+			infoUser.appendChild(pElement)
+			infoUser.appendChild(aElement)
+
+			infoUser.style = 'display: flex'
+		} else {
+			btnAccess.style = 'display: flex'
+		}
 	}
 
 	function toggleLogo() {
@@ -140,13 +181,24 @@
 		}
 	}
 
+	function openDonateWindow() {
+		const urlDonate = checkPathToUrl(
+			'./assets/pages/donate.html',
+			'./donate.html'
+		)
+
+		window.open(urlDonate, '_blank')
+	}
+
 	btnOpenFilter.addEventListener('click', openCloseFilter)
 	btnCloseFilter.addEventListener('click', openCloseFilter)
 	bgModalFilter.addEventListener('click', openCloseFilter)
 	inputSearch.addEventListener('keydown', search)
 	btnSearch.addEventListener('click', search)
+	btnDonate.addEventListener('click', openDonateWindow)
 	btnToggle.addEventListener('click', toggleTheme)
 
 	setTheme()
+	islogedUser()
 	loadCategories(gameList)
 })()

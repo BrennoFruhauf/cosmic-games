@@ -267,7 +267,7 @@ ul::-webkit-scrollbar {
 }
 
 #btn-access {
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
@@ -298,6 +298,25 @@ ul::-webkit-scrollbar {
 
 #register:hover {
 	border-color: rgb(154, 131, 175);
+}
+
+#info-user {
+	display: none;
+	flex-direction: column;
+	align-items: end;
+	color: var(--text-color);
+	font-weight: 700;
+}
+
+#info-user span {
+	text-transform: capitalize;
+}
+
+#info-user > a {
+	text-decoration: none;
+	text-transform: uppercase;
+	color: var(--secondary-color);
+	cursor: pointer;
 }
 
 #btn-theme {
