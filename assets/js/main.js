@@ -8,9 +8,8 @@
 	const inputSearch = document.querySelector('#search-input')
 	const btnSearch = document.querySelector('#search-icon')
 	const btnToggle = document.querySelector('#btn-theme')
-	const urlPath = window.location.pathname.replace('/cosmic-torrent', '')
+	const urlPath = window.location.pathname.replace('/cosmic-games', '')
 	const btnAccess = document.querySelector('#btn-access')
-	const btnDonate = document.querySelector('#btn-donate')
 	const infoUser = document.querySelector('#info-user')
 	const urlDataBase = checkPathToUrl('./assets/db', '../db')
 	const gameData = await (await fetch(`${urlDataBase}/jogos.json`)).json()
@@ -181,21 +180,11 @@
 		}
 	}
 
-	function openDonateWindow() {
-		const urlDonate = checkPathToUrl(
-			'./assets/pages/donate.html',
-			'./donate.html'
-		)
-
-		window.open(urlDonate, '_blank')
-	}
-
 	btnOpenFilter.addEventListener('click', openCloseFilter)
 	btnCloseFilter.addEventListener('click', openCloseFilter)
 	bgModalFilter.addEventListener('click', openCloseFilter)
 	inputSearch.addEventListener('keydown', search)
 	btnSearch.addEventListener('click', search)
-	btnDonate.addEventListener('click', openDonateWindow)
 	btnToggle.addEventListener('click', toggleTheme)
 
 	setTheme()

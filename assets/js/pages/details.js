@@ -95,7 +95,7 @@ let videoId
 	})
 
 	if (gameData) {
-		document.title = `Cosmic Torrent | ${gameData.title}`
+		document.title = `Cosmic Games | ${gameData.title}`
 		addCategories(gameData.details.category)
 		addInfo(gameData)
 	}

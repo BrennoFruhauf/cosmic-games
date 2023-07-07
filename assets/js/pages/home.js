@@ -129,7 +129,7 @@
 
 	function loadGamesByCategory(category, games) {
 		const categoryExceptions = ['rpg', 'lol', 'fps', 'nsw', 'jrpg', '2d', '3d']
-		document.title = `Cosmic Torrent | ${capitalizeString(
+		document.title = `Cosmic Games | ${capitalizeString(
 			category,
 			categoryExceptions
 		)}`
