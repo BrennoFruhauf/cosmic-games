@@ -32,7 +32,6 @@ let videoId
 		card.src = `../${game.info.image.replace('assets/', '')}`
 
 		const btnDownload = document.querySelector('#download')
-		btnDownload.href = simpleCrypto.decrypt(game.details['link-download'])
 
 		const loginWarning = document.querySelector('#login-warning')
 
