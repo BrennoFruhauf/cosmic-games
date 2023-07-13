@@ -8,6 +8,9 @@
 		'cadastro'
 	)
 
+	const signupContainer = document.querySelector('.sign-up-container')
+	const signinContainer = document.querySelector('.sign-in-container')
+
 	const signupUsername = document.querySelector('#signup-username')
 	const signupName = document.querySelector('#signup-name')
 	const signupEmail = document.querySelector('#signup-email')
@@ -15,6 +18,19 @@
 
 	const signinUsername = document.querySelector('#signin-username')
 	const signinPassword = document.querySelector('#signin-password')
+
+	let throttleTimer
+
+	function throttle(callback, time) {
+		if (throttleTimer) return
+
+		throttleTimer = true
+
+		setTimeout(() => {
+			callback()
+			throttleTimer = false
+		}, time)
+	}
 
 	function clearAllInputs() {
 		const allInputs = [
@@ -34,7 +50,7 @@
 
 	function isSignUpPage() {
 		const isRegister = accessParameter === ''
-		if (isRegister) {
+		if (isRegister && window.innerWidth > 700) {
 			const formContainers = document.querySelectorAll('.form-container')
 			const overlayContainer = document.querySelector('.overlay-container')
 			const overlay = document.querySelector('.overlay')
@@ -56,13 +72,29 @@
 			}, 800)
 		}
 
+		function addParameter(parameter) {
+			const url = window.location.href
+
+			const newUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + parameter
+			window.history.pushState({ path: newUrl }, '', newUrl)
+		}
+
+		function removeParameter(parameter) {
+			const url = window.location.href
+
+			const newUrl = url.replace(new RegExp('[?&]' + parameter), '')
+			window.history.replaceState({ path: newUrl }, '', newUrl)
+		}
+
 		btnMoveToSignUp.addEventListener('click', (e) => {
 			container.classList.add('right-panel-active')
+			addParameter('cadastro')
 			clearAllInputs()
 		})
 
 		btnMoveToSignIn.addEventListener('click', (e) => {
 			container.classList.remove('right-panel-active')
+			removeParameter('cadastro')
 			clearAllInputs()
 		})
 	}
@@ -149,7 +181,9 @@
 			} else {
 				registeredAccountsObj.push(newAccount)
 				localStorage.setItem('accounts', JSON.stringify(registeredAccountsObj))
-				btnMoveToSignIn.click()
+
+				if (window.innerWidth > 700) btnMoveToSignIn.click()
+				else window.location.href = './access.html'
 			}
 		}
 	}
@@ -222,7 +256,6 @@
 				errors.push(errorMessages.userNotFound)
 			}
 
-			console.log(errors)
 			document.querySelector('.sign-in-container .errors').innerHTML =
 				errors.map((e) => `<li>${e}</li>`)
 		}
@@ -243,5 +276,24 @@
 		})
 	})
 
+	function isMobileWidth() {
+		throttle(() => {
+			const parameter = new URLSearchParams(window.location.search).get(
+				'cadastro'
+			)
+
+			if (window.innerWidth <= 700) {
+				if (parameter === '') signupContainer.style.display = 'block'
+				else signinContainer.style.display = 'block'
+			} else {
+				signupContainer.removeAttribute('style')
+				signinContainer.removeAttribute('style')
+			}
+		}, 300)
+	}
+
+	window.addEventListener('resize', isMobileWidth)
+
 	isSignUpPage()
+	isMobileWidth()
 })()

@@ -248,3 +248,34 @@ form input {
 	color: red;
 	font-size: 0.8rem;
 }
+
+@media (max-width: 700px) {
+	#container {
+		display: block;
+		border-radius: initial;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.form-container {
+		display: none;
+		position: relative;
+		transition: none;
+	}
+
+	.sign-up-container,
+	.sign-in-container {
+		width: auto;
+		opacity: 1;
+	}
+
+	.container.right-panel-active .sign-up-container,
+	.container.right-panel-active .sign-in-container {
+		transform: none;
+		visibility: initial;
+	}
+
+	.overlay-container {
+		display: none;
+	}
+}

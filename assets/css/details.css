@@ -47,7 +47,7 @@ main::-webkit-scrollbar {
 	z-index: 3;
 	max-width: 1400px;
 	margin-inline: auto;
-	padding-bottom: 30px;
+	padding-bottom: 100px;
 }
 
 #container {
@@ -59,6 +59,7 @@ main::-webkit-scrollbar {
 
 #left {
 	display: flex;
+	align-items: center;
 	flex-direction: column;
 	gap: 20px;
 }
@@ -102,6 +103,10 @@ main::-webkit-scrollbar {
 #download > img {
 	width: 100%;
 	margin-top: 5px;
+}
+
+#login-warning {
+	text-align: center;
 }
 
 #login-warning a {
@@ -169,8 +174,8 @@ main::-webkit-scrollbar {
 
 #video {
 	aspect-ratio: 1920/1080;
-	min-width: 420px;
-	width: 70%;
+	min-width: 220px;
+	width: 100%;
 	margin-inline: auto;
 }
 

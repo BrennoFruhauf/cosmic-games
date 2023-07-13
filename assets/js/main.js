@@ -1,10 +1,13 @@
 ;(async () => {
 	const html = document.querySelector('html')
+	const header = document.querySelector('header')
 	const categoriesContainer = document.querySelector('#category-list')
 	const logo = document.getElementById('logo')
 	const bgModalFilter = document.querySelector('#bg-modal-filter')
 	const btnOpenFilter = document.querySelector('#btn-filter')
 	const btnCloseFilter = document.querySelector('#close-filter')
+	const btnHamburger = document.querySelector('#btn-hamburger')
+	const containerNav = document.querySelector('#responsive-container')
 	const inputSearch = document.querySelector('#search-input')
 	const btnSearch = document.querySelector('#search-icon')
 	const btnToggle = document.querySelector('#btn-theme')
@@ -20,6 +23,19 @@
 	function checkPathToUrl(pathIndex, pathOthersPage) {
 		if (urlPath === '/' || urlPath === '/index.html') return pathIndex
 		else return pathOthersPage
+	}
+
+	let throttleTimer
+
+	function throttle(callback, time) {
+		if (throttleTimer) return
+
+		throttleTimer = true
+
+		setTimeout(() => {
+			callback()
+			throttleTimer = false
+		}, time)
 	}
 
 	function getFirstWord(string) {
@@ -180,12 +196,43 @@
 		}
 	}
 
+	function closeMenuWhenResize() {
+		const isActiveMenu = btnHamburger.classList.contains('active')
+
+		throttle(() => {
+			if (header.clientWidth > 700 && isActiveMenu) {
+				containerNav.removeAttribute('style')
+				btnHamburger.classList.remove('active')
+				btnHamburger
+					.querySelectorAll('div')
+					.forEach((line) => line.classList.add('no-animation'))
+			}
+		}, 300)
+	}
+
+	function isOpenResponsiveMenu({ currentTarget }) {
+		currentTarget.classList.toggle('active')
+
+		const isMenuActive = currentTarget.classList.contains('active')
+		const arrayDiv = currentTarget.querySelectorAll('div')
+
+		if (isMenuActive) {
+			containerNav.style.display = 'block'
+			arrayDiv.forEach((line) => line.classList.remove('no-animation'))
+		} else {
+			containerNav.removeAttribute('style')
+			arrayDiv.forEach((line) => line.classList.add('no-animation'))
+		}
+	}
+
 	btnOpenFilter.addEventListener('click', openCloseFilter)
 	btnCloseFilter.addEventListener('click', openCloseFilter)
 	bgModalFilter.addEventListener('click', openCloseFilter)
 	inputSearch.addEventListener('keydown', search)
 	btnSearch.addEventListener('click', search)
 	btnToggle.addEventListener('click', toggleTheme)
+	btnHamburger.addEventListener('click', isOpenResponsiveMenu)
+	window.addEventListener('resize', closeMenuWhenResize)
 
 	setTheme()
 	islogedUser()
