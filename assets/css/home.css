@@ -1,5 +1,5 @@
 main {
-	height: calc(100vh - 140px);
+	height: calc(100dvh - 140px);
 	overflow-y: hidden;
 }
 
@@ -32,8 +32,6 @@ main {
 
 .card {
 	position: relative;
-	height: 256px;
-	width: 188px;
 	border-radius: 20px;
 	cursor: pointer;
 	overflow: hidden;
@@ -41,6 +39,7 @@ main {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	aspect-ratio: 1/1.41;
 	box-shadow: 3px 3px 10px #00000080;
 }
 
@@ -170,4 +169,10 @@ main {
 		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 	animation: dotTriangle var(--loader-duration)
 		cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+@media (max-width: 590px) {
+	#cards {
+		grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+	}
 }
