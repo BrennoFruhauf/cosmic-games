@@ -1,3 +1,4 @@
+import { throttle } from './shared.js'
 ;(async () => {
 	const html = document.querySelector('html')
 	const header = document.querySelector('header')
@@ -23,19 +24,6 @@
 	function checkPathToUrl(pathIndex, pathOthersPage) {
 		if (urlPath === '/' || urlPath === '/index.html') return pathIndex
 		else return pathOthersPage
-	}
-
-	let throttleTimer
-
-	function throttle(callback, time) {
-		if (throttleTimer) return
-
-		throttleTimer = true
-
-		setTimeout(() => {
-			callback()
-			throttleTimer = false
-		}, time)
 	}
 
 	function getFirstWord(string) {

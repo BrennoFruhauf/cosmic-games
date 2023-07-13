@@ -1,3 +1,4 @@
+import { throttle } from '../shared.js'
 ;(() => {
 	const btnMoveToSignUp = document.querySelector('#sign-up')
 	const btnMoveToSignIn = document.querySelector('#sign-in')
@@ -18,19 +19,6 @@
 
 	const signinUsername = document.querySelector('#signin-username')
 	const signinPassword = document.querySelector('#signin-password')
-
-	let throttleTimer
-
-	function throttle(callback, time) {
-		if (throttleTimer) return
-
-		throttleTimer = true
-
-		setTimeout(() => {
-			callback()
-			throttleTimer = false
-		}, time)
-	}
 
 	function clearAllInputs() {
 		const allInputs = [

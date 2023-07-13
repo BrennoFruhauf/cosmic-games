@@ -1,3 +1,4 @@
+import { throttle } from '../shared.js'
 ;(async () => {
 	const mainContent = document.querySelector('#main-content')
 	const searchByCategory = new URLSearchParams(window.location.search).get(
@@ -10,18 +11,18 @@
 	const cardsContainer = document.querySelector('#cards')
 	const loader = document.querySelector('#loader')
 
-	let throttleTimer
+	// let throttleTimer
 
-	function throttle(callback, time) {
-		if (throttleTimer) return
+	// function throttle(callback, time) {
+	// 	if (throttleTimer) return
 
-		throttleTimer = true
+	// 	throttleTimer = true
 
-		setTimeout(() => {
-			callback()
-			throttleTimer = false
-		}, time)
-	}
+	// 	setTimeout(() => {
+	// 		callback()
+	// 		throttleTimer = false
+	// 	}, time)
+	// }
 
 	function splitArray(array, size) {
 		return new Array(Math.ceil(array.length / size))

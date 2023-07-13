@@ -1,12 +1,26 @@
 let videoId
 ;(async () => {
 	const simpleCrypto = new SimpleCrypto('cosmic')
+	const content = document.querySelector('main')
 	const gameID = new URLSearchParams(window.location.search).get('id')
 	const gameData = await getGame(gameID)
 	videoId = gameData.details.trailer.replace(
 		'https://www.youtube.com/embed/',
 		''
 	)
+
+	let throttleTimer
+
+	function throttle(callback, time) {
+		if (throttleTimer) return
+
+		throttleTimer = true
+
+		setTimeout(() => {
+			callback()
+			throttleTimer = false
+		}, time)
+	}
 
 	async function getGame(id) {
 		let data = await (await fetch('../db/jogos.json')).json()
@@ -25,6 +39,21 @@ let videoId
 
 			container.appendChild(link)
 		})
+	}
+
+	function whenHeaderTouchContent(event) {
+		throttle(() => {
+			const scrollContent = event.target.scrollTop
+			const header = document.querySelector('header')
+			const headerHeight = header.clientHeight
+			const contentTop = document.querySelector('#game-details').offsetTop
+
+			if (scrollContent >= contentTop - headerHeight) {
+				header.classList.add('bg-active')
+			} else {
+				header.classList.remove('bg-active')
+			}
+		}, 300)
 	}
 
 	function addInfo(game) {
@@ -98,6 +127,8 @@ let videoId
 		addCategories(gameData.details.category)
 		addInfo(gameData)
 	}
+
+	content.addEventListener('scroll', whenHeaderTouchContent)
 })()
 
 const tag = document.createElement('script')

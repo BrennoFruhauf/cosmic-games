@@ -1,3 +1,26 @@
+header::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(
+		180deg,
+		var(--background-color) 90%,
+		transparent
+	);
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0;
+	transition: opacity 300ms ease;
+	z-index: -1;
+}
+
+header.bg-active::before {
+	opacity: 1;
+}
+
 main {
 	position: relative;
 	height: calc(100dvh - 50px);
