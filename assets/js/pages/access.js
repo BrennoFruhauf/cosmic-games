@@ -5,7 +5,7 @@ import { throttle } from '../shared.js'
 	const btnSignUp = document.querySelector('#btn-register')
 	const btnSignIn = document.querySelector('#btn-login')
 	const container = document.querySelector('#container')
-	const accessParameter = new URLSearchParams(window.location.search).get(
+	const hasAccessParameter = new URLSearchParams(window.location.search).has(
 		'cadastro'
 	)
 
@@ -37,8 +37,7 @@ import { throttle } from '../shared.js'
 	}
 
 	function isSignUpPage() {
-		const isRegister = accessParameter === ''
-		if (isRegister && window.innerWidth > 700) {
+		if (hasAccessParameter && window.innerWidth > 700) {
 			const formContainers = document.querySelectorAll('.form-container')
 			const overlayContainer = document.querySelector('.overlay-container')
 			const overlay = document.querySelector('.overlay')
@@ -136,6 +135,11 @@ import { throttle } from '../shared.js'
 		emailTaken: 'E-mail já existe',
 	}
 
+	function goToSignIn() {
+		if (window.innerWidth > 700) btnMoveToSignIn.click()
+		else window.location.href = './access.html'
+	}
+
 	function signUp() {
 		const newAccount = {
 			username: signupUsername.value,
@@ -149,7 +153,7 @@ import { throttle } from '../shared.js'
 		if (localStorage.getItem('accounts') === null) {
 			const accounts = [newAccount]
 			localStorage.setItem('accounts', JSON.stringify(accounts))
-			btnMoveToSignIn.click()
+			goToSignIn()
 		} else {
 			const registeredAccounts = localStorage.getItem('accounts')
 			const registeredAccountsObj = JSON.parse(registeredAccounts)
@@ -170,8 +174,7 @@ import { throttle } from '../shared.js'
 				registeredAccountsObj.push(newAccount)
 				localStorage.setItem('accounts', JSON.stringify(registeredAccountsObj))
 
-				if (window.innerWidth > 700) btnMoveToSignIn.click()
-				else window.location.href = './access.html'
+				goToSignIn()
 			}
 		}
 	}
@@ -266,12 +269,12 @@ import { throttle } from '../shared.js'
 
 	function isMobileWidth() {
 		throttle(() => {
-			const parameter = new URLSearchParams(window.location.search).get(
+			const hasParameter = new URLSearchParams(window.location.search).has(
 				'cadastro'
 			)
 
 			if (window.innerWidth <= 700) {
-				if (parameter === '') signupContainer.style.display = 'block'
+				if (hasParameter) signupContainer.style.display = 'block'
 				else signinContainer.style.display = 'block'
 			} else {
 				signupContainer.removeAttribute('style')
