@@ -1,13 +1,8 @@
-let videoId
 ;(async () => {
 	const simpleCrypto = new SimpleCrypto('cosmic')
 	const content = document.querySelector('main')
 	const gameID = new URLSearchParams(window.location.search).get('id')
 	const gameData = await getGame(gameID)
-	videoId = gameData.details.trailer.replace(
-		'https://www.youtube.com/embed/',
-		''
-	)
 
 	let throttleTimer
 
@@ -26,6 +21,27 @@ let videoId
 		let data = await (await fetch('../db/jogos.json')).json()
 
 		return data.games.find((game) => game.id === id) || null
+	}
+
+	async function getVideoStream(url) {
+		url = url.split('/')
+		const videoId = url[url.length - 1]
+		const URL_YT_HTML = 'https://yt2html5.com/?id='
+
+		let res = await fetch(`${URL_YT_HTML}${videoId}`)
+		res = await res.json()
+
+		return await res.data.formats.find((f) => f.quality.includes('hd'))
+	}
+
+	function setBackgroundVideo(stream) {
+		const player = document.getElementById('video-bg')
+		player.src = stream.url
+		player.currentTime = 6
+
+		player.addEventListener('timeupdate', () => {
+			if (player.currentTime < 6) player.currentTime = 6
+		})
 	}
 
 	function addCategories(categories) {
@@ -99,29 +115,6 @@ let videoId
 		trailer.src = game.details.trailer
 	}
 
-	document.addEventListener('DOMContentLoaded', function () {
-		const header = document.querySelector('header')
-		const conteudo = document.querySelector('#conteudo')
-
-		window.addEventListener('scroll', function () {
-			const rect1 = header.getBoundingClientRect()
-			const rect2 = conteudo.getBoundingClientRect()
-
-			if (
-				rect1.bottom >= rect2.top &&
-				rect1.top <= rect2.bottom &&
-				rect1.right >= rect2.left &&
-				rect1.left <= rect2.right
-			) {
-				header.classList.add('encostando')
-				conteudo.classList.add('encostando')
-			} else {
-				header.classList.remove('encostando')
-				conteudo.classList.remove('encostando')
-			}
-		})
-	})
-
 	if (gameData) {
 		document.title = `Cosmic Games | ${gameData.title}`
 		addCategories(gameData.details.category)
@@ -129,28 +122,7 @@ let videoId
 	}
 
 	content.addEventListener('scroll', whenHeaderTouchContent)
+
+	const videoStream = await getVideoStream(gameData.details.trailer)
+	setBackgroundVideo(videoStream)
 })()
-
-const tag = document.createElement('script')
-const firstScriptTag = document.getElementsByTagName('script')[0]
-tag.src = 'https://www.youtube.com/iframe_api'
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-
-function onYouTubeIframeAPIReady() {
-	new YT.Player('video-bg', {
-		height: '360',
-		width: '640',
-		videoId: videoId,
-		playerVars: {
-			autoplay: 1,
-			loop: 1,
-			disablekb: 1,
-			mute: 1,
-			modestbranding: 1,
-			showinfo: 0,
-			rel: 0,
-			playlist: videoId,
-			start: 6,
-		},
-	})
-}
