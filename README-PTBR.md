@@ -8,11 +8,11 @@
 
 <div align="center">
   
-  ![GitHub Repo Progresso](https://img.shields.io/badge/status-complete-_?style=for-the-badge&color=%2304db48)
-  ![GitHub Contagem de Linguagem](https://img.shields.io/github/languages/count/brennofruhauf/cosmic-games?style=for-the-badge&color=%230088ff)
-  ![GitHub Repo Estrelas](https://img.shields.io/github/stars/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ffff00)
-  ![GitHub Repo Tamanho](https://img.shields.io/github/repo-size/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ff0040)
-  ![GitHub Repo Último Commit](https://img.shields.io/github/last-commit/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ff006b)
+  ![GitHub Repo Progresso](https://img.shields.io/badge/status-completo-_?style=for-the-badge&color=%2304db48)
+  ![GitHub Contagem de Linguagem](https://img.shields.io/github/languages/count/brennofruhauf/cosmic-games?style=for-the-badge&label=Linguagens&color=%230088ff)
+  ![GitHub Repo Estrelas](https://img.shields.io/github/stars/brennofruhauf/cosmic-games?style=for-the-badge&label=Estrelas&color=%23ffff00)
+  ![GitHub Repo Tamanho](https://img.shields.io/github/repo-size/brennofruhauf/cosmic-games?style=for-the-badge&label=Tamanho&color=%23ff0040)
+  ![GitHub Repo Último Commit](https://img.shields.io/github/last-commit/brennofruhauf/cosmic-games?style=for-the-badge&label=Último%20Commit&color=%23ff006b)
   [![GitHub Readme Inglês](https://img.shields.io/badge/%F0%9F%87%BA%F0%9F%87%B8_README-Ingl%C3%AAs-_?style=for-the-badge&color=%23B22334)](https://github.com/BrennoFruhauf/cosmic-games)
   
 </div>
