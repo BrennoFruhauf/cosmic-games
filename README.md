@@ -13,7 +13,7 @@
   ![GitHub Repo Stars](https://img.shields.io/github/stars/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ffff00)
   ![GitHub Repo Size](https://img.shields.io/github/repo-size/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ff0040)
   ![GitHub Repo Last Commit](https://img.shields.io/github/last-commit/brennofruhauf/cosmic-games?style=for-the-badge&color=%23ff006b)
-  [![GitHub Readme Portuguese](https://img.shields.io/badge/%F0%9F%87%A7%F0%9F%87%B7_README-Portuguese-_?style=for-the-badge&color=%23009B3A)](https://github.com/BrennoFruhauf/BrennoFruhauf/blob/main/README-PTBR.md)
+  [![GitHub Readme Portuguese](https://img.shields.io/badge/%F0%9F%87%A7%F0%9F%87%B7_README-Portuguese-_?style=for-the-badge&color=%23009B3A)](https://github.com/BrennoFruhauf/cosmic-games/blob/main/README-PTBR.md)
   
 </div>
 
@@ -36,9 +36,9 @@ This project was developed with the following technologies:
 
 This project was developed to complete the subject "Web Development I" of the Information Systems course at IF Goiano Campus Avaçado Catalão.
 
-The data on display was obtained via Web Scraping done using the [puppeteer.js](https://pptr.dev/) library on game information sites, after which a json was created simulating the database.
+The data on display was obtained by Web Scraping using the [puppeteer.js](https://pptr.dev/) library on game information sites, after which a json was created simulating the database.
 
-The website [Cosmic Games](https://brennofruhauf.github.io/cosmic-games/) is a simulation of a catalog of games to be downloaded, with a minimalist design and an innovative experience.
+The website [Cosmic Games](https://brennofruhauf.github.io/cosmic-games/) is a simulation of a catalog of games to be downloaded. With a minimalist design and an innovative experience.
 
 ## 📋 To-do
 
@@ -51,7 +51,7 @@ The website [Cosmic Games](https://brennofruhauf.github.io/cosmic-games/) is a s
   - [X] `Card:` Create the card to display the game cover.
   - [X] `Infinite Scrolling:` Create infinite scrolling pagination with game-themed loading.
 - [X] Game Details Page
-  - [X] `Video Background:` Display the game trailer/gameplay in the background of the page..
+  - [X] `Video Background:` Display the game trailer/gameplay in the background of the page.
   - [X] `Show Details:` View detailed game data.
 - [X] `Sign In/Sign Up:` Create the sign in and sign up design on the same page with data validation and saving in localStorage.
 - [X] `Responsiveness:` Create responsiveness for mobile devices.
