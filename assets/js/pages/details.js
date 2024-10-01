@@ -26,7 +26,7 @@
 	async function getVideoStream(url) {
 		url = url.split('/')
 		const videoId = url[url.length - 1]
-		const URL_YT_HTML = 'https://yt2html5.com/?id='
+		const URL_YT_HTML = 'http://ytmetadata.us.to/?id='
 
 		let res = await fetch(`${URL_YT_HTML}${videoId}`)
 		res = await res.json()
